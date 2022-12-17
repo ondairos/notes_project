@@ -16,9 +16,9 @@ import { nanoid } from "nanoid";
  */
 
 export default function App() {
+  //convert to JSON from localstorage the notes key or display empty array. Add function in useState for lazy state init(don't reload on every state change)
   const [notes, setNotes] = React.useState(
-    //convert to JSON from localstorage the notes key or display empty array
-    JSON.parse(localStorage.getItem("notes")) || []
+    () => JSON.parse(localStorage.getItem("notes")) || []
   );
 
   const [currentNoteId, setCurrentNoteId] = React.useState(
