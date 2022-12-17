@@ -16,10 +16,19 @@ import { nanoid } from "nanoid";
  */
 
 export default function App() {
-  const [notes, setNotes] = React.useState([]);
+  const [notes, setNotes] = React.useState(
+    //convert to JSON from localstorage the notes key or display empty array
+    JSON.parse(localStorage.getItem("notes")) || []
+  );
+
   const [currentNoteId, setCurrentNoteId] = React.useState(
     (notes[0] && notes[0].id) || ""
   );
+
+  React.useEffect(() => {
+    //localstorage pass the "notes" key inside localstorage(NOT THE STATE). Stringify to save to local storage
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   function createNewNote() {
     const newNote = {
