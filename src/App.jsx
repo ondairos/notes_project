@@ -64,6 +64,18 @@ export default function App() {
     // }))
   }
 
+  // Delete Note
+  function deleteNote(event, noteId) {
+    // stop click selection after delete
+    event.stopPropagation()
+    // use filter on setNotes state to remove the note
+    setNotes(prevNotes => {
+      return prevNotes.filter(element => element.id !== noteId)
+    })
+
+
+}
+
   function findCurrentNote() {
     return (
       notes.find((note) => {
@@ -81,6 +93,7 @@ export default function App() {
             currentNote={findCurrentNote()}
             setCurrentNoteId={setCurrentNoteId}
             newNote={createNewNote}
+            deleteNote={deleteNote}
           />
           {currentNoteId && notes.length > 0 && (
             <Editor currentNote={findCurrentNote()} updateNote={updateNote} />
